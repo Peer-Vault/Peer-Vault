@@ -8,8 +8,7 @@ import {
   InputGroup,
   FormControl,
   Alert,
-} from "react-bootstrap";
-import Navbar from "../home/Navbar/Navbar";
+} from "react-bootstrap"; 
 import styles from "./Register.module.css"; // Import the CSS module
 import { Eye, EyeSlash } from "react-bootstrap-icons"; // Import icons
 
@@ -132,7 +131,6 @@ const Register = () => {
 
   return (
     <>
-      <Navbar />
       <Container className={styles.container}>
         <Row>
           <Col md={8} lg={6} className="mx-auto">

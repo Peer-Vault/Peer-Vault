@@ -1,5 +1,13 @@
 import React, { useState, useRef, useEffect } from "react";
-import { Container, Form, Row, Col, ProgressBar, Spinner, Alert } from "react-bootstrap";
+import {
+  Container,
+  Form,
+  Row,
+  Col,
+  ProgressBar,
+  Spinner,
+  Alert,
+} from "react-bootstrap";
 import Navbar from "../home/Navbar/Navbar";
 
 const UploadFile = () => {
@@ -53,14 +61,16 @@ const UploadFile = () => {
   };
 
   return (
-    <>
-      <Navbar />
+    <> 
       <Container className="mt-5">
         <Row className="justify-content-center">
           <Col md={8}>
             <h1 className="text-center mb-4">Upload File</h1>
             <Form>
-              <Form.Group controlId="formFile" className="mb-4 position-relative">
+              <Form.Group
+                controlId="formFile"
+                className="mb-4 position-relative"
+              >
                 <Form.Label className="sr-only">Upload File</Form.Label>
                 <div className="position-relative">
                   {/* Hidden file input */}
@@ -82,7 +92,8 @@ const UploadFile = () => {
                       textAlign: "center", // Center text
                       fontSize: "1.5rem", // Larger font size
                       cursor: "pointer", // Pointer cursor
-                      backgroundImage: "url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSg_ri9E8XxXRafeIMA4QGosabTMk_wP7pTDQ&s')", // Set the background image
+                      backgroundImage:
+                        "url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSg_ri9E8XxXRafeIMA4QGosabTMk_wP7pTDQ&s')", // Set the background image
                       backgroundSize: "60%", // Zoom in by 150%
                       backgroundPosition: "center", // Center the image
                       backgroundRepeat: "no-repeat",

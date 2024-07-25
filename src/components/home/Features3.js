@@ -1,6 +1,6 @@
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
-import feature3 from "../../assets/feature3.jpg";
+import feature3 from "../../assets/feature3.png";
 
 const Features3 = () => {
   return (

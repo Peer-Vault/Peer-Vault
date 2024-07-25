@@ -32,6 +32,7 @@ function App() {
     },
     {
       path: "/user",
+      element: <Layout />,
       children: [
         {
           path: "auth/register",
@@ -61,6 +62,7 @@ function App() {
     },
     {
       path: "/user",
+      element: <Layout />,
       children: [
         {
           path: "userinfo/getUserById",
@@ -70,6 +72,7 @@ function App() {
     },
     {
       path: "/file",
+      element: <Layout />,
       children: [
         {
           path: "all-files",

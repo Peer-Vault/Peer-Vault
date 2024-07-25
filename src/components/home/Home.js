@@ -11,16 +11,16 @@ const Home = () => {
   const isAuthenticated = localStorage.getItem("isLoggedIn") === "100";
 
   const register = () => {
-    navigate("/register");
+    navigate("/user/auth/register");
   };
 
   const goToForm = () => {
-    navigate(`/user/${userId}/all-forms`);
+    navigate(`/file/all-files`);
   };
 
   return (
     <Container className="mt-5" style={{ marginBottom: "100px" }}>
-      <Row className="p-4" style={{ backgroundColor: "#d9e6f4" }}> 
+      <Row className="p-4" style={{ backgroundColor: "#d9e6f4" }}>
         <Col md={12} className="text-center mb-4">
           <h1 style={{ fontSize: "3rem" }}>Welcome to Peer Vault</h1>
           <p>
@@ -30,7 +30,7 @@ const Home = () => {
         </Col>
       </Row>
 
-      <Row className="mt-5">
+      <Row className="mt-3">
         <Col md={6} className="d-flex align-items-center">
           <div>
             <h2>Seamlessly Upload Files with Metadata</h2>
@@ -46,7 +46,7 @@ const Home = () => {
               size="lg"
               style={{ marginBottom: "20px" }}
             >
-              Go to Forms
+              Go to Files
             </Button>
             {!isAuthenticated && (
               <p>
@@ -73,9 +73,10 @@ const Home = () => {
           md={6}
           style={{
             backgroundImage:
-              'url("https://internal.mobrog.com/assets/images/image-main/Anyone-Can-Make-Money-with-Online-Surveys-article-page.webp")',
-            backgroundSize: "cover",
+              'url("https://extrimian.io/wp-content/uploads/2024/03/Centralized-data-storage-system-vs-IPFS-interplanetary-file-system-1-1024x576.png")',
+            backgroundSize: "90%", // Adjust the percentage to zoom in more or less
             backgroundPosition: "center",
+            backgroundRepeat: "no-repeat",
             minHeight: "500px",
           }}
         >

@@ -9,7 +9,6 @@ import {
   InputGroup,
   FormControl,
 } from "react-bootstrap";
-import Navbar from "../home/Navbar/Navbar";
 import { Eye, EyeSlash } from "react-bootstrap-icons";
 import { useNavigate } from "react-router-dom";
 
@@ -66,7 +65,7 @@ const Login = () => {
 
   return (
     <>
-      <Navbar />
+    
       <Container className="mt-5 p-5">
         <Row className="justify-content-md-center">
           <Col md={6}>
