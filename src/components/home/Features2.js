@@ -1,6 +1,6 @@
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
-import feature2 from "../../assets/feature2.png";
+import feature2 from "../../assets/feature2.png"
 
 const Features2 = () => {
   return (
@@ -18,14 +18,12 @@ const Features2 = () => {
         >
           <div>
             <h2 style={{ fontSize: "2.5rem" }}>
-              Effortlessly analyze responses with Form Fusion's automatic
-              summaries feature
+              Effortlessly Share Files via Email
             </h2>
             <p>
-              Gain insights at a glance by viewing charts with response data
-              that update in real-time. Whether you're tracking survey results,
-              collecting feedback, or conducting research, our platform provides
-              you with clear visualizations to understand your data better.
+              Share your files with others directly via email. Peer Vault makes
+              it easy to send file links to recipients, ensuring they receive
+              the necessary information and access to the files you want to share.
             </p>
           </div>
         </Col>
@@ -37,7 +35,7 @@ const Features2 = () => {
             backgroundPosition: "center",
             minHeight: "370px",
             maxWidth: "100%",
-            padding : "50px"
+            padding: "50px"
           }}
         ></Col>
       </Row>

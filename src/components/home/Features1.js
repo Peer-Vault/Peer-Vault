@@ -29,13 +29,13 @@ const Features1 = () => {
         >
           <div>
             <h1 style={{ fontSize: "2.5rem" }}>
-              Create online forms effortlessly with Form Fusion
+              Seamlessly Upload Files with Metadata
             </h1>
             <p>
-              Our platform allows you to build forms as easily as drafting a
-              document. Whether you're collecting feedback, conducting surveys,
-              or gathering data, Form Fusion empowers you to design forms
-              tailored to your requirements.
+              Easily upload your files along with essential metadata. Peer Vault
+              ensures that all your files are organized and accessible with the
+              right information, allowing you to manage and track your files
+              efficiently.
             </p>
           </div>
         </Col>

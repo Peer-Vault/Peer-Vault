@@ -1,0 +1,35 @@
+/* Register.module.css */
+.container {
+    margin-top: 20px; /* Adjust margin as needed */
+  }
+  
+  .formTitle {
+    font-size: 1.5rem; /* Adjust font size as needed */
+    margin-bottom: 20px;
+  }
+  
+  .formWrapper {
+    padding: 20px; /* Adjust padding as needed */
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .formControl {
+    font-size: 0.9rem; /* Adjust font size */
+    padding: 0.5rem; /* Adjust padding */
+  }
+  
+  .formLabel {
+    font-size: 0.9rem; /* Adjust font size */
+  }
+  
+  .nextButton, .backButton, .submitButton {
+    font-size: 0.9rem; /* Adjust font size */
+    padding: 0.5rem; /* Adjust padding */
+  }
+  
+  .alert {
+    margin-bottom: 20px;
+  }
+  

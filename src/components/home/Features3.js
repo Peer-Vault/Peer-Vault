@@ -29,14 +29,13 @@ const Features3 = () => {
         >
           <div>
             <h2 style={{ fontSize: "2.5rem" }}>
-              Simplify Survey Creation and Response with Form Fusion
+              Efficiently Access and Manage Your Files
             </h2>
             <p>
-              Form Fusion enables easy creation and response to surveys from
-              anywhere. Whether on desktop, tablet, or smartphone, access our
-              platform seamlessly to create, edit, and manage forms. Respondents
-              can conveniently answer from any device, ensuring flexibility and
-              accessibility for all.
+              Peer Vault provides a user-friendly interface to manage your files
+              efficiently. Access your uploaded files, view metadata, and keep
+              track of shared files all in one place, ensuring easy management
+              and retrieval whenever you need it.
             </p>
           </div>
         </Col>

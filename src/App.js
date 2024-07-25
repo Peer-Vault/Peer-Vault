@@ -9,6 +9,11 @@ import ShareFile from "./components/file/ShareFile";
 import UserInfo from "./components/user/UserInfo";
 import Layout from "./pages/Layout";
 import RegisterLayout from "./pages/RegisterLayout";
+import Contact from "./components/contact/Contact";
+import ContactLayout from "./pages/ContactLayout";
+import LoginLayout from "./pages/LoginLayout";
+import LogoutLayout from "./pages/LogoutLayout";
+import Logout from "./components/auth/Logout";
 
 function App() {
   const router = createBrowserRouter([
@@ -35,7 +40,19 @@ function App() {
         },
         {
           path: "auth/login",
-          element: <Login />,
+          element: (
+            <LoginLayout>
+              <Login />
+            </LoginLayout>
+          ),
+        },
+        {
+          path: "auth/logout",
+          element: (
+            <LogoutLayout>
+              <Logout />
+            </LogoutLayout>
+          ),
         },
       ],
     },
@@ -64,6 +81,14 @@ function App() {
           element: <ShareFile />,
         },
       ],
+    },
+    {
+      path: "/contact-us",
+      element: (
+        <ContactLayout>
+          <Contact />
+        </ContactLayout>
+      ),
     },
   ]);
 
