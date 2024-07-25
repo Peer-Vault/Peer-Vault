@@ -14,6 +14,9 @@ import ContactLayout from "./pages/ContactLayout";
 import LoginLayout from "./pages/LoginLayout";
 import LogoutLayout from "./pages/LogoutLayout";
 import Logout from "./components/auth/Logout";
+import AllFilesLayout from "./pages/AllFilesLayout";
+import AllFiles from "./components/file/AllFiles";
+import UploadFileLayout from "./pages/UploadFileLayout";
 
 function App() {
   const router = createBrowserRouter([
@@ -69,8 +72,20 @@ function App() {
       path: "/file",
       children: [
         {
+          path: "all-files",
+          element: (
+            <AllFilesLayout>
+              <AllFiles />
+            </AllFilesLayout>
+          ),
+        },
+        {
           path: "upload",
-          element: <UploadFile />,
+          element: (
+            <UploadFileLayout>
+              <UploadFile />
+            </UploadFileLayout>
+          ),
         },
         {
           path: "download/:hash",

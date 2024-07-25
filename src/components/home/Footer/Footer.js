@@ -22,7 +22,7 @@ const Footer = () => {
               <p style={{ marginBottom: "5px" }}>
                 <a
                   href="mailto:cmanishkumar193@gmail.com"
-                  style={{ textDecoration: "none", color  :"#5770c3" }}
+                  style={{ textDecoration: "none", color: "#5770c3" }}
                 >
                   cmanishkumar193@gmail.com
                 </a>
@@ -41,7 +41,7 @@ const Footer = () => {
                 for more information.
               </p>
               <p>
-                <a 
+                <a
                   href="https://www.linkedin.com/in/manishkumarchoudhary/"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -49,7 +49,8 @@ const Footer = () => {
                 >
                   Linkedln
                 </a>{" "}
-                <a className="ml-2"
+                <a
+                  className="ml-2"
                   href="https://github.com/Manishkumarchoudhary2003"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -57,7 +58,8 @@ const Footer = () => {
                 >
                   Github
                 </a>{" "}
-                <a className="ml-2"
+                <a
+                  className="ml-2"
                   href="https://www.instagram.com/manish_.96/"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -70,8 +72,10 @@ const Footer = () => {
           </Col>
         </Row>
       </Container>
-      <div className="text-center mt-1">
-        <p>© {new Date().getFullYear()} Form Fusion. All rights reserved.</p>
+      <div className="bg-dark text-white text-center py-3">
+        <Container>
+          <p>&copy; 2024 Peer Vault. All rights reserved.</p>
+        </Container>
       </div>
     </footer>
   );

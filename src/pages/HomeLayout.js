@@ -1,6 +1,6 @@
 const HomeLayout = ({ children }) => {
     return (
-      <div style={{ marginTop: "80px", padding: "20px"}}>
+      <div style={{ marginTop: "50px", padding: "20px"}}>
         {children}
       </div>
     );

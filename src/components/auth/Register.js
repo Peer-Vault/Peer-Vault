@@ -123,9 +123,9 @@ const Register = () => {
       });
       window.scrollTo({ top: 0, behavior: "smooth" });
       setStep(1);
-      setTimeout(() => setSuccessMessage(""), 2000); 
+      setTimeout(() => setSuccessMessage(""), 2000);
     }
-  }; 
+  };
 
   const isStep1Valid = Object.keys(validateStep1()).length === 0;
   const isStep2Valid = Object.keys(validateStep2()).length === 0;
