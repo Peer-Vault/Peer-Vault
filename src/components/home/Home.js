@@ -6,9 +6,8 @@ import easy from "../../assets/easy.png";
 import service from "../../assets/service.png";
 
 const Home = () => {
-  const navigate = useNavigate();
-  const userId = localStorage.getItem("userId");
-  const isAuthenticated = localStorage.getItem("isLoggedIn") === "100";
+  const navigate = useNavigate(); 
+  const isAuthenticated = localStorage.getItem("login");
 
   const register = () => {
     navigate("/user/auth/register");

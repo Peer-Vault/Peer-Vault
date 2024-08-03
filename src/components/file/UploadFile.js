@@ -8,7 +8,7 @@ import {
   Spinner,
   Alert,
 } from "react-bootstrap";
-import Navbar from "../home/Navbar/Navbar";
+
 
 const UploadFile = () => {
   const [fileMeta, setFileMeta] = useState({ file: null });

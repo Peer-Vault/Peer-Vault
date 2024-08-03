@@ -8,9 +8,10 @@ import {
   InputGroup,
   FormControl,
   Alert,
-} from "react-bootstrap"; 
+} from "react-bootstrap";
 import styles from "./Register.module.css"; // Import the CSS module
 import { Eye, EyeSlash } from "react-bootstrap-icons"; // Import icons
+import { userRegisterApiService } from "../../api/AuthApiService";
 
 const Register = () => {
   const [step, setStep] = useState(1);
@@ -94,7 +95,7 @@ const Register = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (step === 2) {
       const step2Errors = validateStep2();
@@ -104,8 +105,18 @@ const Register = () => {
       }
 
       setErrors({});
-      console.log(formData);
-      setSuccessMessage("User registered successfully.");
+
+      const dataToSubmit = { ...formData, dateOfBirth: `${formData.dateOfBirth}T00:00:00` };
+      delete dataToSubmit.confirmPassword;
+
+      try {
+        const response = await userRegisterApiService(dataToSubmit);
+        console.log(response.data);
+        setSuccessMessage("User registered successfully.");
+      } catch (error) {
+        setErrors({ apiError: error.message });
+      }
+
       setFormData({
         username: "",
         firstName: "",
@@ -269,9 +280,7 @@ const Register = () => {
                       />
                       <Button
                         variant="outline-secondary"
-                        onClick={() =>
-                          setShowConfirmPassword(!showConfirmPassword)
-                        }
+                        onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                       >
                         {showConfirmPassword ? <EyeSlash /> : <Eye />}
                       </Button>
@@ -280,8 +289,8 @@ const Register = () => {
 
                   <Button
                     variant="primary"
+                    type="button"
                     onClick={handleNext}
-                    className={`${styles.nextButton} w-100`}
                     disabled={!isStep1Valid}
                   >
                     Next
@@ -323,9 +332,7 @@ const Register = () => {
                   </Form.Group>
 
                   <Form.Group className="mb-3">
-                    <Form.Label className={styles.formLabel}>
-                      Address
-                    </Form.Label>
+                    <Form.Label className={styles.formLabel}>Address</Form.Label>
                     <Form.Control
                       type="text"
                       name="address"
@@ -358,9 +365,9 @@ const Register = () => {
                     <Form.Label className={styles.formLabel}>Bio</Form.Label>
                     <Form.Control
                       as="textarea"
-                      rows={3}
                       name="bio"
-                      placeholder="Enter a short bio"
+                      rows={3}
+                      placeholder="Enter your bio"
                       value={formData.bio}
                       onChange={handleChange}
                       className={styles.formControl}
@@ -369,22 +376,19 @@ const Register = () => {
                     />
                   </Form.Group>
 
-                  <Button
-                    variant="secondary"
-                    onClick={handleBack}
-                    className={`${styles.backButton} w-100`}
-                  >
-                    Back
-                  </Button>
-
-                  <Button
-                    variant="primary"
-                    onClick={handleSubmit}
-                    className={`${styles.submitButton} w-100 mt-2`}
-                    disabled={!isStep2Valid}
-                  >
-                    Submit
-                  </Button>
+                  <div className="d-flex justify-content-between">
+                    <Button variant="secondary" type="button" onClick={handleBack}>
+                      Back
+                    </Button>
+                    <Button
+                      variant="primary"
+                      type="submit"
+                      onClick={handleSubmit}
+                      disabled={!isStep2Valid}
+                    >
+                      Submit
+                    </Button>
+                  </div>
                 </>
               )}
             </Form>
