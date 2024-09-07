@@ -75,7 +75,7 @@ function App() {
       element: <Layout />,
       children: [
         {
-          path: "all-files",
+          path: ":userId/all-files",
           element: (
             <AllFilesLayout>
               <AllFiles />

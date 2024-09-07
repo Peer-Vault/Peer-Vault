@@ -112,6 +112,9 @@ const Register = () => {
       try {
         const response = await userRegisterApiService(dataToSubmit);
         console.log(response.data);
+        if (response.data && response.data.id) {
+          localStorage.setItem("userId", response.data.id);
+        }
         setSuccessMessage("User registered successfully.");
       } catch (error) {
         setErrors({ apiError: error.message });

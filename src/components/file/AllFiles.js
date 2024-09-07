@@ -11,63 +11,52 @@ import {
   Alert,
   Dropdown,
 } from "react-bootstrap";
-
-
-
-const dummyFiles = [
-  {
-    id: 1,
-    fileName: "Document.pdf",
-    fileType: "PDF",
-    fileSize: "1.2 MB",
-    CID: "Qm123456789",
-    uploadDate: new Date().toLocaleString(),
-    fileUrl: "https://example.com/document.pdf",
-    userId: 1,
-    description: "This is a PDF document.",
-  },
-  {
-    id: 2,
-    fileName: "Image.png",
-    fileType: "Image",
-    fileSize: "2.4 MB",
-    CID: "Qm987654321",
-    uploadDate: new Date().toLocaleString(),
-    fileUrl: "https://example.com/image.png",
-    userId: 2,
-    description: "This is an image file.",
-  },
-];
+import { allFilesApiService, shareFileApiService, downloadFileApiService, deleteFileApiService } from "../../api/FileApiService";
 
 const AllFiles = () => {
   const [showModal, setShowModal] = useState(false);
-  const [selectedFileUrl, setSelectedFileUrl] = useState("");
+  const [selectedFileId, setSelectedFileId] = useState(null);
   const [email, setEmail] = useState("");
-  const [fileData, setFileData] = useState(dummyFiles);
+  const [fileData, setFileData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
 
+  const token = localStorage.getItem("token");
+  const userId = localStorage.getItem("userId");
+
   useEffect(() => {
-    setLoading(true);
-    try {
-      setFileData(dummyFiles);
-    } catch (err) {
-      setError("Failed to load files.");
-    } finally {
-      setLoading(false);
+    if (token && userId) {
+      setLoading(true);
+      allFilesApiService(userId, token)
+        .then((data) => {
+          setFileData(data);
+        })
+        .catch((err) => {
+          setError("Failed to load files.");
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    } else {
+      setError("User is not authenticated.");
     }
-  }, []);
+  }, [token, userId]);
 
-  const filteredFiles = fileData.filter(
-    (file) =>
-      file.fileName.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      file.description.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const filteredFiles = fileData.filter((file) => {
+    const fileName = file.fileName ? file.fileName.toLowerCase() : "";
+    const description = file.description ? file.description.toLowerCase() : "";
+    const searchQueryLower = searchQuery.toLowerCase();
 
-  const handleShareClick = (fileUrl) => {
-    setSelectedFileUrl(fileUrl);
+    return (
+      fileName.includes(searchQueryLower) ||
+      description.includes(searchQueryLower)
+    );
+  });
+
+  const handleShareClick = (fileId) => {
+    setSelectedFileId(fileId);
     setShowModal(true);
   };
 
@@ -76,20 +65,91 @@ const AllFiles = () => {
     setEmail("");
   };
 
-  const handleConfirmShare = () => {
-    console.log("File URL to share:", selectedFileUrl);
+  const handleConfirmShare = async () => {
+    console.log("File ID to share:", selectedFileId);
     console.log("Recipient's email:", email);
-    // Add logic to actually send the email
 
-    setShowSuccessAlert(true);
-    setTimeout(() => {
-      setShowSuccessAlert(false);
-    }, 2000); // Show success alert for 2 seconds
+    try {
+      const token = localStorage.getItem("token");
+      await shareFileApiService(selectedFileId, email, token);
+
+      setShowSuccessAlert(true);
+      setTimeout(() => {
+        setShowSuccessAlert(false);
+      }, 2000);
+    } catch (error) {
+      console.error("Error sharing the file:", error);
+      alert('Failed to share the file.');
+    }
 
     handleCloseModal();
   };
 
-  // Email validation function
+  const handleOpenFile = async (hash) => {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await downloadFileApiService(hash, token);
+
+      // Create a Blob from the byte array in the response
+      const blob = new Blob([response.data], { type: response.headers['content-type'] });
+
+      // Create an object URL from the Blob
+      const url = window.URL.createObjectURL(blob);
+
+      // Open the file in a new tab
+      window.open(url, "_blank");
+
+      // Optionally revoke the object URL after use to free memory
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error("Error opening the file:", error);
+    }
+  };
+
+
+
+  const handleDeleteClick = async (fileId) => {
+    if (window.confirm("Are you sure you want to delete this file?")) {
+      try {
+        const token = localStorage.getItem("token");
+        await deleteFileApiService(fileId, token);
+        alert('File deleted successfully.');
+        window.location.reload();
+      } catch (error) {
+        console.error("Error deleting the file:", error);
+        alert('Failed to delete the file.');
+      }
+    }
+  };
+
+  const handleDownloadFile = async (hash) => {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await downloadFileApiService(hash, token);
+
+      const blob = new Blob([response.data], { type: response.headers['content-type'] });
+
+      const contentDisposition = response.headers['content-disposition'];
+      const filename = contentDisposition
+        ? contentDisposition.split('filename=')[1].split(';')[0].replace(/['"]/g, '')
+        : 'downloadedFile';
+
+      const url = window.URL.createObjectURL(blob);
+
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', filename);
+      document.body.appendChild(link);
+      link.click();
+
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+
+    } catch (error) {
+      console.error("Error downloading the file:", error);
+    }
+  };
+
   const isEmailValid = (email) => {
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailPattern.test(email);
@@ -144,84 +204,48 @@ const AllFiles = () => {
           <Row className="row-cols-1 row-cols-md-3">
             {filteredFiles.map((file) => (
               <Col md={4} key={file.id} className="mb-4">
-                <Card className="h-100 shadow position-relative">
+                <Card className="h-100 shadow-sm">
                   <Card.Body>
-                    <Card.Title>{file.fileName}</Card.Title>
+                    <Card.Title className="text-truncate">
+                      {file.fileName}
+                    </Card.Title>
                     <Card.Subtitle className="mb-2 text-muted">
-                      {file.fileType} - {file.fileSize}
+                      {file.fileSize}
                     </Card.Subtitle>
-                    <Card.Text>{file.description}</Card.Text>
+                    <Card.Text>
+                      Description: {file.description}
+                    </Card.Text>
                     <Card.Text>
                       <small className="text-muted">
-                        Uploaded on: {file.uploadDate}
+                        {new Date(file.uploadDate).toLocaleString()}
                       </small>
                     </Card.Text>
-                    <Dropdown className="dropdown-custom position-absolute bottom-0 end-0 p-3">
+                  </Card.Body>
+                  <Card.Footer className="bg-white border-0 d-flex justify-content-end">
+                    <Dropdown>
                       <Dropdown.Toggle
                         variant="link"
                         id={`dropdown-basic-${file.id}`}
-                        style={{
-                          backgroundColor: "transparent",
-                          border: "none",
-                          transition: "background-color 0.3s, border 0.1s",
-                          display: "flex",
-                          flexDirection: "column",
-                          borderRadius: "50%",
-                          alignItems: "center",
-                        }}
+                        className="text-decoration-none"
                       >
-                        <div
-                          style={{
-                            width: "6px",
-                            height: "6px",
-                            borderRadius: "50%",
-                            backgroundColor: "black",
-                            marginTop: "2px",
-                          }}
-                        ></div>
-                        <div
-                          style={{
-                            width: "6px",
-                            height: "6px",
-                            borderRadius: "50%",
-                            backgroundColor: "black",
-                            marginTop: "2px",
-                          }}
-                        ></div>
-                        <div
-                          style={{
-                            width: "6px",
-                            height: "6px",
-                            borderRadius: "50%",
-                            backgroundColor: "black",
-                            marginTop: "2px",
-                          }}
-                        ></div>
+                        <i className="bi bi-three-dots"></i>
                       </Dropdown.Toggle>
-                      <Dropdown.Menu className="dropdown-menu-custom">
-                        <Dropdown.Item
-                          href={file.fileUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          Open File
+                      <Dropdown.Menu>
+                        <Dropdown.Item onClick={() => handleOpenFile(file.cid)}>
+                          Open
                         </Dropdown.Item>
-                        <Dropdown.Item
-                          href={file.fileUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          download
-                        >
-                          Download File
+                        <Dropdown.Item onClick={() => handleDownloadFile(file.cid)}>
+                          Download
                         </Dropdown.Item>
-                        <Dropdown.Item
-                          onClick={() => handleShareClick(file.fileUrl)}
-                        >
-                          Share File
+                        <Dropdown.Item onClick={() => handleShareClick(file.id)}>
+                          Share
+                        </Dropdown.Item>
+                        <Dropdown.Item onClick={() => handleDeleteClick(file.id)}>
+                          Delete
                         </Dropdown.Item>
                       </Dropdown.Menu>
                     </Dropdown>
-                  </Card.Body>
+                  </Card.Footer>
                 </Card>
               </Col>
             ))}
@@ -230,9 +254,7 @@ const AllFiles = () => {
 
         {showSuccessAlert && (
           <div className="position-fixed top-50 start-50 translate-middle p-3">
-            <Alert variant="success">
-              File shared successfully!
-            </Alert>
+            <Alert variant="success">File shared successfully!</Alert>
           </div>
         )}
       </Container>

@@ -18,3 +18,16 @@ export const userRegisterApiService = (user) => {
       throw error;
     });
 };
+
+
+export const userLoginApiService = (authRequest) => {
+  return ApiClient.post("/user/auth/login", authRequest)
+    .then(response => {
+      console.log("User Login successfully:", response.data);
+      return response.data;
+    })
+    .catch(error => {
+      console.error("Error login user:", error);
+      throw error;
+    });
+};

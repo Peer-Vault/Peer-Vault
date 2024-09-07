@@ -1,14 +1,15 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom"; 
+import { useNavigate } from "react-router-dom";
 import { Modal, Button } from "react-bootstrap";
 
-const Logout  = () => {
+const Logout = () => {
   const [showModal, setShowModal] = useState(false);
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
-  const handleLogout = () => { 
+  const handleLogout = () => {
 
-    localStorage.removeItem("login"); 
+    localStorage.removeItem("login");
+    localStorage.removeItem("token");
 
     navigate("/");
     window.location.reload();

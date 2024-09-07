@@ -13,6 +13,7 @@ const Navbar = () => {
   };
 
   const Authentication = localStorage.getItem("login");
+  const userId = localStorage.getItem("userId");
 
   return (
     <nav className="shadow bg-white">
@@ -49,52 +50,52 @@ const Navbar = () => {
         >
           Home
         </button>
-        <button 
-              onClick={() => {
-                navigate("/file/upload");
-                closeMenu();
-              }}
-              style={{
-                color: "#1372c0",
-                border: "none",
-                fontWeight: "bold",
-                marginTop: "5px",
-                padding: "0.5rem 1rem",
-                fontSize: "1.2rem",
-                cursor: "pointer",
-                backgroundColor: "transparent",
-                transition: "background-color 0s",
-              }}
-              onMouseEnter={(e) => (e.target.style.backgroundColor = "#ecf5fa")}
-              onMouseLeave={(e) =>
-                (e.target.style.backgroundColor = "transparent")
-              }
-            >
-              Upload
-            </button>
         <button
-              onClick={() => {
-                navigate("/file/all-files");
-                closeMenu();
-              }}
-              style={{
-                color: "#1372c0",
-                border: "none",
-                fontWeight: "bold",
-                marginTop: "5px",
-                padding: "0.5rem 1rem",
-                fontSize: "1.2rem",
-                cursor: "pointer",
-                backgroundColor: "transparent",
-                transition: "background-color 0s",
-              }}
-              onMouseEnter={(e) => (e.target.style.backgroundColor = "#ecf5fa")}
-              onMouseLeave={(e) =>
-                (e.target.style.backgroundColor = "transparent")
-              }
-            >
-              All Files
-            </button>
+          onClick={() => {
+            navigate("/file/upload");
+            closeMenu();
+          }}
+          style={{
+            color: "#1372c0",
+            border: "none",
+            fontWeight: "bold",
+            marginTop: "5px",
+            padding: "0.5rem 1rem",
+            fontSize: "1.2rem",
+            cursor: "pointer",
+            backgroundColor: "transparent",
+            transition: "background-color 0s",
+          }}
+          onMouseEnter={(e) => (e.target.style.backgroundColor = "#ecf5fa")}
+          onMouseLeave={(e) =>
+            (e.target.style.backgroundColor = "transparent")
+          }
+        >
+          Upload
+        </button>
+        <button
+          onClick={() => {
+            navigate(`/file/${userId}/all-files`);
+            closeMenu();
+          }}
+          style={{
+            color: "#1372c0",
+            border: "none",
+            fontWeight: "bold",
+            marginTop: "5px",
+            padding: "0.5rem 1rem",
+            fontSize: "1.2rem",
+            cursor: "pointer",
+            backgroundColor: "transparent",
+            transition: "background-color 0s",
+          }}
+          onMouseEnter={(e) => (e.target.style.backgroundColor = "#ecf5fa")}
+          onMouseLeave={(e) =>
+            (e.target.style.backgroundColor = "transparent")
+          }
+        >
+          All Files
+        </button>
         {!Authentication && (
           <>
             <button
