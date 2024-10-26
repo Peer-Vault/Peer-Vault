@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Container, Form, Row, Col, ProgressBar, Spinner, Alert } from 'react-bootstrap';
 import { uploadFileApiService } from "../../api/FileApiService";
+import { useNavigate } from 'react-router-dom';
 
 const UploadFile = () => {
   const [fileMeta, setFileMeta] = useState({ file: null });
@@ -8,13 +9,15 @@ const UploadFile = () => {
   const [isUploading, setIsUploading] = useState(false);
   const [uploadSuccess, setUploadSuccess] = useState(false); // State for success message
   const fileInputRef = useRef(null); // Create a ref for the file input
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (uploadSuccess) {
+      const userId = localStorage.getItem("userId");
       const timer = setTimeout(() => {
         setUploadSuccess(false); // Hide the success message after 2 seconds
       }, 2000); // 2000 milliseconds = 2 seconds
-
+      navigate(`/file/${userId}/all-files`);
       return () => clearTimeout(timer); // Cleanup timer on component unmount or when uploadSuccess changes
     }
   }, [uploadSuccess]);

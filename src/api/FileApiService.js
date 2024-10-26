@@ -72,7 +72,7 @@ export const downloadFileApiService = async (hash, token) => {
             headers: {
                 Authorization: `Bearer ${token}`,
             },
-            responseType: 'blob', // Set response type to blob to handle byte array
+            responseType: 'blob',
         });
 
         return response;
@@ -83,20 +83,19 @@ export const downloadFileApiService = async (hash, token) => {
 };
 
 
-// export const downloadFileApiService = async (hash, token) => {
-//     try {
-//         const response = await ApiClient.get(`/file/download/${hash}`, {
-//             headers: {
-//                 Authorization: `Bearer ${token}`,
-//             },
-//         });
-//         console.log("Files downloaded successfully:", response.data);
-//         return response.data;
-//     } catch (error) {
-//         console.error("Error downloading files:", error);
-//         throw error;
-//     }
-// };
+export const downloadSharedFileApiService = async (hash) => {
+    try {
+        const response = await ApiClient.get(`/file/download/shared/${hash}`, {
+            responseType: 'blob',
+        });
+
+        return response;
+    } catch (error) {
+        console.error("Error downloading files:", error);
+        throw error;
+    }
+};
+
 
 
 export const deleteFileApiService = async (fileId, token) => {

@@ -88,7 +88,7 @@ const AllFiles = () => {
   const handleOpenFile = async (hash) => {
     try {
       const token = localStorage.getItem("token");
-      const response = await downloadFileApiService(hash, token);
+      const response = await downloadFileApiService(hash, token); // Fetch the file
 
       // Create a Blob from the byte array in the response
       const blob = new Blob([response.data], { type: response.headers['content-type'] });
