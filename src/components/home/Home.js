@@ -6,15 +6,16 @@ import easy from "../../assets/easy.png";
 import service from "../../assets/service.png";
 
 const Home = () => {
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
   const isAuthenticated = localStorage.getItem("login");
+  const userId = localStorage.getItem("userId");
 
   const register = () => {
     navigate("/user/auth/register");
   };
 
   const goToForm = () => {
-    navigate(`/file/all-files`);
+    navigate(`/file/${userId}/all-files`);
   };
 
   return (

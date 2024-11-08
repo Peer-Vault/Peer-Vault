@@ -10,7 +10,7 @@ const Footer = () => {
             <div className="mb-5">
               <h2>Thanks for visiting</h2>
               <p>
-                Thank you for visiting Form Fusion. Connect with us over
+                Thank you for visiting Peer Vault. Connect with us over
                 socials.
               </p>
             </div>

@@ -29,7 +29,7 @@ const Features1 = () => {
         >
           <div>
             <h1 style={{ fontSize: "2.5rem" }}>
-              Seamlessly Upload Files with Metadata
+              Seamlessly Upload  etadata
             </h1>
             <p>
               Easily upload your files along with essential metadata. Peer Vault

@@ -11,6 +11,7 @@ export const userRegisterApiService = (user) => {
   return ApiClient.post("/user/auth/register", user)
     .then(response => {
       console.log("User registered successfully:", response.data);
+      localStorage.setItem("userId", response.data.id);
       return response.data;
     })
     .catch(error => {

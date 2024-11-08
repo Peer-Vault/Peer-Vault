@@ -1,9 +1,9 @@
 import React from "react";
 import { Container, Row, Col, Image } from "react-bootstrap";
-import avatar from "../../assets/avatar.jpeg"; 
+import avatar from "../../assets/avatar.jpeg";
 import Navbar from "../home/Navbar/Navbar";
 
-const Contact = () => { 
+const Contact = () => {
   return (
     <>
       <Navbar />
@@ -28,15 +28,13 @@ const Contact = () => {
           </Col>
           <Col lg={6} className="py-4 mt-2">
             <div>
-              <h1 style={{ color: "#1c4bab",fontSize: "2.2rem" }}>
+              <h1 style={{ color: "#1c4bab", fontSize: "2.2rem" }}>
                 I'm Manish Kumar Choudhary
-              
+
               </h1>
 
               <p style={{ color: "#565a5a" }}>
-                I'm a 3rd-year Computer Science student at JIET Group of
-                Institutions, Jodhpur with hands-on experience in JAVA,
-                JavaScript, React.js, Spring Boot, and Hibernate.
+                I am Manish Kumar Choudhary, a B.Tech student at JIET, Jodhpur (CGPA 9.84). With hands-on experience in Java, Spring Boot, React, and Docker, I recently interned at Platform Commons, optimizing Java backend services in a microservices setup using Kafka, Solr, and Elasticsearch.
               </p>
               <p>Let's create something extraordinary together! 🚀</p>
             </div>

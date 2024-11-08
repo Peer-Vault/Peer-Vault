@@ -12,6 +12,7 @@ import {
 import styles from "./Register.module.css"; // Import the CSS module
 import { Eye, EyeSlash } from "react-bootstrap-icons"; // Import icons
 import { userRegisterApiService } from "../../api/AuthApiService";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
   const [step, setStep] = useState(1);
@@ -34,6 +35,7 @@ const Register = () => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [errors, setErrors] = useState({});
   const [successMessage, setSuccessMessage] = useState("");
+  const navigate = useNavigate();
 
   const validateStep1 = () => {
     const errors = {};
@@ -115,7 +117,14 @@ const Register = () => {
         if (response.data && response.data.id) {
           localStorage.setItem("userId", response.data.id);
         }
+        // sessionStorage.setItem("userId", response.data.id);
         setSuccessMessage("User registered successfully.");
+
+        // Display the success message for 2 seconds, then navigate to login
+        setTimeout(() => {
+          setSuccessMessage("");
+          navigate("/user/auth/login");
+        }, 2000);
       } catch (error) {
         setErrors({ apiError: error.message });
       }
@@ -136,9 +145,9 @@ const Register = () => {
       });
       window.scrollTo({ top: 0, behavior: "smooth" });
       setStep(1);
-      setTimeout(() => setSuccessMessage(""), 2000);
     }
   };
+
 
   const isStep1Valid = Object.keys(validateStep1()).length === 0;
   const isStep2Valid = Object.keys(validateStep2()).length === 0;
