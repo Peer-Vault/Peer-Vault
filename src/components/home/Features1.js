@@ -18,7 +18,7 @@ const Features1 = () => {
             minHeight: "500px",
           }}
         >
-          {/* Empty column to apply background image */}
+          {/* Empty column to apply background image  */}
         </Col>
         <Col
           md={6}
@@ -36,6 +36,7 @@ const Features1 = () => {
               ensures that all your files are organized and accessible with the
               right information, allowing you to manage and track your files
               efficiently.
+              
             </p>
           </div>
         </Col>
